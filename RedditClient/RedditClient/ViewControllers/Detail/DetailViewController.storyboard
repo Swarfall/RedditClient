@@ -9,17 +9,17 @@
     </dependencies>
     <scenes>
         <!--Detail View Controller-->
-        <scene sceneID="Q2B-cY-t6o">
+        <scene sceneID="Z7s-qj-egr">
             <objects>
-                <viewController storyboardIdentifier="DetailViewController" id="9iT-fa-uWd" customClass="DetailViewController" customModule="RedditClient" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="mhv-fz-3UA">
+                <viewController storyboardIdentifier="DetailViewController" id="IfT-ve-OM0" customClass="DetailViewController" customModule="RedditClient" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Z6j-FQ-968">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="hlR-Qx-H7E"/>
+                        <viewLayoutGuide key="safeArea" id="9DI-Wu-Jed"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mLg-71-DF2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Et5-ry-tkw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1842.0289855072465" y="118.52678571428571"/>
         </scene>
