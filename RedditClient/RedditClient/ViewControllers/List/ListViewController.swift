@@ -32,11 +32,21 @@ final class ListViewController: UIViewController {
     
     private var apiManager: APIManager!
     private var redditList: [RedditEntity]!
+    private var router: ListRouter!
+    
+    // MARK: - LifeCycle
+    init(router: ListRouter) {
+        self.router = router
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
     }
     
 }
@@ -119,12 +129,18 @@ extension ListViewController: ListViewControllerProtocol {
     
     func fetchReddit() {
         showOverlay()
-        apiManager.fetchReddit(limit: "10") { [weak self] reddit in
+        apiManager.fetchReddit(limit: "10") { [weak self] data in
             guard let self = self else { return }
+            for reddit in data.data.children {
+                self.redditList.append(RedditEntity(model: reddit))
+            }
+            self.reloadData()
+            self.hideOverlay()
             
-        } fail: { [weak self] (errorString) in
+        } fail: { [weak self] errorString in
             guard let self = self else { return }
-            
+            debugPrint("fetchReddit error: - \(errorString)")
+            self.hideOverlay()
         }
 
     }

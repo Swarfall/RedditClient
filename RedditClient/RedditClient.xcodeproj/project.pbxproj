@@ -10,6 +10,10 @@
 		9232323825C0A528009857D9 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9232323725C0A528009857D9 /* APIManager.swift */; };
 		9232323D25C0A6E1009857D9 /* RedditModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9232323C25C0A6E1009857D9 /* RedditModel.swift */; };
 		9232324125C0B51E009857D9 /* UIWindow+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9232324025C0B51E009857D9 /* UIWindow+Extension.swift */; };
+		9232324B25C0CE19009857D9 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9232324A25C0CE19009857D9 /* AppCoordinator.swift */; };
+		9232324E25C14106009857D9 /* ListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9232324D25C14106009857D9 /* ListRouter.swift */; };
+		9232325125C1419C009857D9 /* ListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9232325025C1419C009857D9 /* ListViewController.storyboard */; };
+		9232325425C1436C009857D9 /* Storyboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9232325325C1436C009857D9 /* Storyboard+Extension.swift */; };
 		92B9946D25BF2F6C00ACD653 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B9946C25BF2F6C00ACD653 /* AppDelegate.swift */; };
 		92B9946F25BF2F6C00ACD653 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B9946E25BF2F6C00ACD653 /* SceneDelegate.swift */; };
 		92B9947425BF2F6C00ACD653 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92B9947225BF2F6C00ACD653 /* Main.storyboard */; };
@@ -26,6 +30,10 @@
 		9232323725C0A528009857D9 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		9232323C25C0A6E1009857D9 /* RedditModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditModel.swift; sourceTree = "<group>"; };
 		9232324025C0B51E009857D9 /* UIWindow+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extension.swift"; sourceTree = "<group>"; };
+		9232324A25C0CE19009857D9 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		9232324D25C14106009857D9 /* ListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRouter.swift; sourceTree = "<group>"; };
+		9232325025C1419C009857D9 /* ListViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ListViewController.storyboard; sourceTree = "<group>"; };
+		9232325325C1436C009857D9 /* Storyboard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Storyboard+Extension.swift"; sourceTree = "<group>"; };
 		92B9946925BF2F6C00ACD653 /* RedditClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RedditClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92B9946C25BF2F6C00ACD653 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92B9946E25BF2F6C00ACD653 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -71,8 +79,17 @@
 			isa = PBXGroup;
 			children = (
 				9232324025C0B51E009857D9 /* UIWindow+Extension.swift */,
+				9232325325C1436C009857D9 /* Storyboard+Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		9232324925C0CDF5009857D9 /* Flows */ = {
+			isa = PBXGroup;
+			children = (
+				9232324A25C0CE19009857D9 /* AppCoordinator.swift */,
+			);
+			path = Flows;
 			sourceTree = "<group>";
 		};
 		92B9946025BF2F6C00ACD653 = {
@@ -97,6 +114,7 @@
 				9232323625C0A512009857D9 /* Network */,
 				9232323B25C0A6C6009857D9 /* Model */,
 				92B994A225BF48DE00ACD653 /* Entity */,
+				9232324925C0CDF5009857D9 /* Flows */,
 				92B9949F25BF48BC00ACD653 /* ViewControllers */,
 				9232323F25C0B503009857D9 /* Extensions */,
 				92B9946C25BF2F6C00ACD653 /* AppDelegate.swift */,
@@ -123,6 +141,8 @@
 			children = (
 				92B994AD25BF492000ACD653 /* Cell */,
 				92B994A725BF490600ACD653 /* ListViewController.swift */,
+				9232324D25C14106009857D9 /* ListRouter.swift */,
+				9232325025C1419C009857D9 /* ListViewController.storyboard */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -213,6 +233,7 @@
 				92B994B625BF494900ACD653 /* RedditCell.xib in Resources */,
 				92B9947625BF2F6F00ACD653 /* Assets.xcassets in Resources */,
 				92B9947425BF2F6C00ACD653 /* Main.storyboard in Resources */,
+				9232325125C1419C009857D9 /* ListViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,7 +246,10 @@
 			files = (
 				92B9946D25BF2F6C00ACD653 /* AppDelegate.swift in Sources */,
 				9232323D25C0A6E1009857D9 /* RedditModel.swift in Sources */,
+				9232325425C1436C009857D9 /* Storyboard+Extension.swift in Sources */,
+				9232324B25C0CE19009857D9 /* AppCoordinator.swift in Sources */,
 				9232324125C0B51E009857D9 /* UIWindow+Extension.swift in Sources */,
+				9232324E25C14106009857D9 /* ListRouter.swift in Sources */,
 				92B994A425BF48E800ACD653 /* RedditEntity.swift in Sources */,
 				92B994AB25BF491600ACD653 /* DetailViewController.swift in Sources */,
 				92B994B525BF494900ACD653 /* RedditCell.swift in Sources */,

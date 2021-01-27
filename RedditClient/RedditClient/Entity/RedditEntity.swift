@@ -18,17 +18,14 @@ struct RedditEntity {
 
 // MARK: - Init for convert from RedditModel
 extension RedditEntity {
-    init(model: RedditModel? = nil, index: Int? = nil) {
-        guard let model = model,
-              let index = index else { return }
+    init(model: RedditChildren? = nil) {
+        guard let model = model else { return }
 
-        let children = model.data.children[index]
-        
-        title = children.title
-        thumbnailURL = children.thumbnailURL
-        author = children.author
-        commentsCount = children.commentsCount
-        destURL = children.destURL
-        createdUTC = children.createdUTC
+        title = model.title
+        thumbnailURL = model.thumbnailURL
+        author = model.author
+        commentsCount = model.commentsCount
+        destURL = model.destURL
+        createdUTC = model.createdUTC
     }
 }
