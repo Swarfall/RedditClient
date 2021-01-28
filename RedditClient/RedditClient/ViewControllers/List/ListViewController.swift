@@ -11,18 +11,27 @@ protocol ListViewControllerProtocol: class {
     func reloadData()
     func showOverlay()
     func hideOverlay()
-    func fetchReddit()
+    func fetchReddit(with limit: Int)
 }
 
 final class ListViewController: UIViewController {
     
+    // MARK: - Outlet
     @IBOutlet weak var tableView: UITableView!
     
     // MARK: - Private properties
-    private lazy var refreshControl: UIRefreshControl = {
+    private lazy var downloadRefreshControl: UIRefreshControl = {
         
         let refresh = UIRefreshControl()
-        refresh.addTarget(self, action: #selector(refreshing(sender:)), for: .valueChanged)
+        refresh.addTarget(self, action: #selector(refreshingDownload(sender:)), for: .valueChanged)
+        return refresh
+    }()
+    
+    private lazy var reloadRefreshControl: UIRefreshControl = {
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self, action: #selector(refreshingReload(sender:)), for: .valueChanged)
+        refresh.tintColor = .blue
+        refresh.attributedTitle = NSAttributedString(string: "Reload...")
         return refresh
     }()
     
@@ -31,7 +40,9 @@ final class ListViewController: UIViewController {
     
     private var apiManager = APIManager()
     private var redditList: [RedditEntity] = []
-    private var limit: Int = 10
+    private var limit: Int = 30
+    private var defaultLimit: Int = 30
+    private let addToLimit: Int = 20
     
     // MARK: - Public property
     var router: ListRouter!
@@ -40,15 +51,18 @@ final class ListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        fetchReddit()
+        
+        showOverlay()
+        fetchReddit(with: limit)
     }
-    
 }
 
 // MARK: - Private
 private extension ListViewController {
     func setupView() {
+        
         setupCell()
+        tableView.refreshControl = reloadRefreshControl
     }
     
     func setupCell() {
@@ -56,7 +70,13 @@ private extension ListViewController {
                            forCellReuseIdentifier: String(describing: RedditCell.self))
     }
     
-    @objc func refreshing(sender: UIRefreshControl) {
+    @objc func refreshingDownload(sender: UIRefreshControl) {
+        sender.endRefreshing()
+    }
+    
+    @objc func refreshingReload(sender: UIRefreshControl) {
+        limit = defaultLimit
+        fetchReddit(with: limit)
         sender.endRefreshing()
     }
 }
@@ -77,10 +97,18 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         cell.update(entity: redditList[indexPath.row])
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == limit - 4 {
+            limit += addToLimit
+            fetchReddit(with: limit)
+        }
+    }
 }
 
 // MARK: - ListViewControllerProtocol
 extension ListViewController: ListViewControllerProtocol {
+    
     func reloadData() {
         DispatchQueue.main.async { [weak self] in
             self?.tableView.reloadData()
@@ -117,8 +145,8 @@ extension ListViewController: ListViewControllerProtocol {
     }
     
     
-    func fetchReddit() {
-        showOverlay()
+    func fetchReddit(with limit: Int) {
+        
         apiManager.fetchReddit(limit: "\(limit)") { [weak self] redditData in
             guard let self = self else { return }
             let children = redditData.data.children
