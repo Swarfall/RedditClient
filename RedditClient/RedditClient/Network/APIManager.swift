@@ -18,14 +18,21 @@ final class APIManager {
 extension APIManager: APIManagerProtocol {
     func fetchReddit(limit: String, success: @escaping (RedditModel) -> Void, fail: @escaping (String) -> Void) {
         
-        guard let url = URL(string: "\(baseURL)limit=\(limit)") else { return }
+        guard let url = URL(string: "https://www.reddit.com/top/.json?\(baseURL)limit=\(limit)") else { return }
+        print("url: - \(url)")
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
+        request.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         
-        let _ = URLSession.shared.dataTask(with: request) { (data, responce, error) in
+        let session = URLSession.shared
+        
+        session.dataTask(with: request) { (data, responce, error) in
             guard let data = data else { return }
+            print("data: - \(data)")
             do {
+//                let json = try JSONSerialization.jsonObject(with: data, options: [])
+//                print("json: - \(json)")
                 let reddit = try JSONDecoder().decode(RedditModel.self, from: data)
                 success(reddit)
             } catch let error {

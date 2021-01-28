@@ -15,9 +15,8 @@ protocol ListViewControllerProtocol: class {
 }
 
 final class ListViewController: UIViewController {
-
-    @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var tableView: UITableView!
     
     // MARK: - Private properties
     private lazy var refreshControl: UIRefreshControl = {
@@ -30,23 +29,24 @@ final class ListViewController: UIViewController {
     private lazy var overlayView = UIView()
     private lazy var activityIndicator = UIActivityIndicatorView()
     
-    private var apiManager: APIManager!
-    private var redditList: [RedditEntity]!
-    private var router: ListRouter!
+    private var apiManager = APIManager()
+    private var redditList: [RedditEntity] = []
+    var router: ListRouter!
     
     // MARK: - LifeCycle
-    init(router: ListRouter) {
-        self.router = router
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    //    init(router: ListRouter) {
+    //        self.router = router
+    //        super.init(nibName: nil, bundle: nil)
+    //    }
+    //
+    //    required init?(coder: NSCoder) {
+    //        fatalError("init(coder:) has not been implemented")
+    //    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupView()
+        fetchReddit()
     }
     
 }
@@ -58,8 +58,8 @@ private extension ListViewController {
     }
     
     func setupCell() {
-        collectionView.register(UINib(nibName: String(describing: RedditCell.self), bundle: nil),
-                                forCellWithReuseIdentifier: String(describing: RedditCell.self))
+        tableView.register(UINib(nibName: String(describing: RedditCell.self), bundle: nil),
+                           forCellReuseIdentifier: String(describing: RedditCell.self))
     }
     
     @objc func refreshing(sender: UIRefreshControl) {
@@ -69,23 +69,19 @@ private extension ListViewController {
     
 }
 
-// MARK: - CollectionView
-extension ListViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+// MARK: - UITableViewDelegate, UITableViewDataSource
+extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if UIWindow.isLandscape {
-            return CGSize(width: 0, height: 0) // FIXME: - Mock data
-        } else {
-            return CGSize(width: 0, height: 0) // FIXME: - Mock data
-        }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return redditList.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: RedditCell.self), for: indexPath) as? RedditCell else { return  UICollectionViewCell() }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RedditCell.self), for: indexPath) as? RedditCell else { return UITableViewCell() }
         cell.update(entity: redditList[indexPath.row])
         return cell
     }
@@ -95,7 +91,7 @@ extension ListViewController: UICollectionViewDelegate, UICollectionViewDataSour
 extension ListViewController: ListViewControllerProtocol {
     func reloadData() {
         DispatchQueue.main.async {
-            self.collectionView.reloadData()
+            self.tableView.reloadData()
         }
     }
     
@@ -122,18 +118,23 @@ extension ListViewController: ListViewControllerProtocol {
     }
     
     func hideOverlay() {
-        activityIndicator.stopAnimating()
-        overlayView.removeFromSuperview()
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+            self.overlayView.removeFromSuperview()
+        }
     }
     
     
     func fetchReddit() {
         showOverlay()
-        apiManager.fetchReddit(limit: "10") { [weak self] data in
+        apiManager.fetchReddit(limit: "25") { [weak self] redditData in
             guard let self = self else { return }
-            for reddit in data.data.children {
-                self.redditList.append(RedditEntity(model: reddit))
+            let children = redditData.data.children
+            
+            for reddit in children {
+                self.redditList.append(RedditEntity(model: reddit.data))
             }
+            
             self.reloadData()
             self.hideOverlay()
             
@@ -142,6 +143,5 @@ extension ListViewController: ListViewControllerProtocol {
             debugPrint("fetchReddit error: - \(errorString)")
             self.hideOverlay()
         }
-
     }
 }

@@ -19,8 +19,8 @@ final class ListRouter {
     }
     
     func build() -> ListViewController {
-        var viewController = ListViewController.storyboardViewController() as ListViewController
-        viewController = ListViewController(router: self)
+        let viewController = ListViewController.storyboardViewController() as ListViewController
+        viewController.router = self
         return viewController
     }
     
