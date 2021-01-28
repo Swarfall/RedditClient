@@ -31,18 +31,12 @@ final class ListViewController: UIViewController {
     
     private var apiManager = APIManager()
     private var redditList: [RedditEntity] = []
+    private var limit: Int = 10
+    
+    // MARK: - Public property
     var router: ListRouter!
     
     // MARK: - LifeCycle
-    //    init(router: ListRouter) {
-    //        self.router = router
-    //        super.init(nibName: nil, bundle: nil)
-    //    }
-    //
-    //    required init?(coder: NSCoder) {
-    //        fatalError("init(coder:) has not been implemented")
-    //    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -65,8 +59,6 @@ private extension ListViewController {
     @objc func refreshing(sender: UIRefreshControl) {
         sender.endRefreshing()
     }
-    
-    
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -90,8 +82,8 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: - ListViewControllerProtocol
 extension ListViewController: ListViewControllerProtocol {
     func reloadData() {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
         }
     }
     
@@ -118,16 +110,16 @@ extension ListViewController: ListViewControllerProtocol {
     }
     
     func hideOverlay() {
-        DispatchQueue.main.async {
-            self.activityIndicator.stopAnimating()
-            self.overlayView.removeFromSuperview()
+        DispatchQueue.main.async { [weak self] in
+            self?.activityIndicator.stopAnimating()
+            self?.overlayView.removeFromSuperview()
         }
     }
     
     
     func fetchReddit() {
         showOverlay()
-        apiManager.fetchReddit(limit: "25") { [weak self] redditData in
+        apiManager.fetchReddit(limit: "\(limit)") { [weak self] redditData in
             guard let self = self else { return }
             let children = redditData.data.children
             
