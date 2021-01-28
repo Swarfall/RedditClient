@@ -81,87 +81,93 @@ private extension ListViewController {
     }
 }
 
-// MARK: - UITableViewDelegate, UITableViewDataSource
-extension ListViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return redditList.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RedditCell.self), for: indexPath) as? RedditCell else { return UITableViewCell() }
-        cell.update(entity: redditList[indexPath.row])
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == limit - 4 {
-            limit += addToLimit
-            fetchReddit(with: limit)
-        }
-    }
-}
-
-// MARK: - ListViewControllerProtocol
-extension ListViewController: ListViewControllerProtocol {
-    
-    func reloadData() {
-        DispatchQueue.main.async { [weak self] in
-            self?.tableView.reloadData()
-        }
-    }
-    
-    func showOverlay() {
-        overlayView.frame = CGRect(x: view.frame.width,
-                                   y: view.frame.height,
-                                   width: view.frame.width,
-                                   height: view.frame.height)
-        overlayView.center = view.center
-        overlayView.backgroundColor = .lightGray
-        overlayView.clipsToBounds = true
-        overlayView.layer.cornerRadius = 10
-        overlayView.alpha = 0.7
+    // MARK: - UITableViewDelegate, UITableViewDataSource
+    extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         
-        activityIndicator.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        activityIndicator.style = .large
-        activityIndicator.color = .blue
-        activityIndicator.center = CGPoint(x: overlayView.bounds.width / 2,
-                                           y: overlayView.bounds.height / 2)
-        overlayView.addSubview(activityIndicator)
-        view.addSubview(overlayView)
-        
-        activityIndicator.startAnimating()
-    }
-    
-    func hideOverlay() {
-        DispatchQueue.main.async { [weak self] in
-            self?.activityIndicator.stopAnimating()
-            self?.overlayView.removeFromSuperview()
+        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            return UITableView.automaticDimension
         }
-    }
-    
-    
-    func fetchReddit(with limit: Int) {
         
-        apiManager.fetchReddit(limit: "\(limit)") { [weak self] redditData in
-            guard let self = self else { return }
-            let children = redditData.data.children
-            
-            for reddit in children {
-                self.redditList.append(RedditEntity(model: reddit.data))
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return redditList.count
+        }
+        
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RedditCell.self), for: indexPath) as? RedditCell else { return UITableViewCell() }
+            cell.update(entity: redditList[indexPath.row])
+            return cell
+        }
+        
+        func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+            if indexPath.row == limit - 1 {
+                
+                activityIndicator.frame = CGRect(x: 0, y: 0, width: tableView.tableFooterView?.frame.width ?? 0, height: 44)
+                activityIndicator.startAnimating()
+                tableView.tableFooterView = activityIndicator
+                tableView.tableFooterView?.isHidden = false
+                
+                limit += addToLimit
+                fetchReddit(with: limit)
             }
-            
-            self.reloadData()
-            self.hideOverlay()
-            
-        } fail: { [weak self] errorString in
-            guard let self = self else { return }
-            debugPrint("fetchReddit error: - \(errorString)")
-            self.hideOverlay()
         }
     }
-}
+    
+    // MARK: - ListViewControllerProtocol
+    extension ListViewController: ListViewControllerProtocol {
+        
+        func reloadData() {
+            DispatchQueue.main.async { [weak self] in
+                self?.tableView.reloadData()
+            }
+        }
+        
+        func showOverlay() {
+            overlayView.frame = CGRect(x: view.frame.width,
+                                       y: view.frame.height,
+                                       width: view.frame.width,
+                                       height: view.frame.height)
+            overlayView.center = view.center
+            overlayView.backgroundColor = .lightGray
+            overlayView.clipsToBounds = true
+            overlayView.layer.cornerRadius = 10
+            overlayView.alpha = 0.7
+            
+            activityIndicator.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+            activityIndicator.style = .large
+            activityIndicator.color = .blue
+            activityIndicator.center = CGPoint(x: overlayView.bounds.width / 2,
+                                               y: overlayView.bounds.height / 2)
+            overlayView.addSubview(activityIndicator)
+            view.addSubview(overlayView)
+            
+            activityIndicator.startAnimating()
+        }
+        
+        func hideOverlay() {
+            DispatchQueue.main.async { [weak self] in
+                self?.activityIndicator.stopAnimating()
+                self?.overlayView.removeFromSuperview()
+            }
+        }
+        
+        
+        func fetchReddit(with limit: Int) {
+            
+            apiManager.fetchReddit(limit: "\(limit)") { [weak self] redditData in
+                guard let self = self else { return }
+                let children = redditData.data.children
+                self.redditList.removeAll()
+                for reddit in children {
+                    self.redditList.append(RedditEntity(model: reddit.data))
+                }
+                
+                self.reloadData()
+                self.hideOverlay()
+                
+            } fail: { [weak self] errorString in
+                guard let self = self else { return }
+                debugPrint("fetchReddit error: - \(errorString)")
+                self.hideOverlay()
+            }
+        }
+    }

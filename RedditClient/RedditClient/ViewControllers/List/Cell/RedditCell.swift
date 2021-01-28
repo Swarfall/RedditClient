@@ -52,7 +52,7 @@ private extension RedditCell {
         
         let date = NSDate(timeIntervalSince1970: date)
         let hours = Calendar.current.component(.hour, from: date as Date)
-        return "\(hours) ago"
+        return "\(hours)h ago"
     }
     
     func setupView() {
