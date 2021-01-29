@@ -16,23 +16,34 @@ struct RedditData: Decodable {
 }
 
 struct RedditChlidrenData: Decodable {
-    let data: RedditChildren
+    let data: RedditChildrenData
 }
 
-struct RedditChildren: Decodable {
+struct RedditChildrenData: Decodable {
     let title: String
     let thumbnailURL: String
     let author: String
     let commentsCount: Int
-//    let destURL: String
+    let preview: RedditChildrenDataPreview
     let createdUTC: Double
     
     enum CodingKeys: String, CodingKey {
-        case title
+        case title, preview
         case thumbnailURL = "thumbnail"
         case author = "author_fullname"
         case commentsCount = "num_comments"
-//        case destURL = "url_overridden_by_dest"
         case createdUTC = "created_utc"
     }
+}
+
+struct RedditChildrenDataPreview: Decodable {
+    let images: [RedditChildrenDataPreviewImages]
+}
+
+struct RedditChildrenDataPreviewImages: Decodable {
+    let source: RedditChildrenDataPreviewImagesSource
+}
+
+struct RedditChildrenDataPreviewImagesSource: Decodable {
+    let url: String
 }

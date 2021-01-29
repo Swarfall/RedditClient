@@ -40,7 +40,7 @@ final class RedditCell: UITableViewCell {
         commentsCountLabel.text = "Comments: \(entity.commentsCount ?? 0)"
         authorLabel.text = "Author: \(entity.author ?? "no info")"
         hoursAgoLabel.text = differenceInHours(utc: entity.createdUTC ?? 0)
-        
+//        print("url_overridden_by_dest: - \(entity.destURL)")
     }
 
 }

@@ -41,7 +41,7 @@ final class ListViewController: UIViewController {
     private var apiManager = APIManager()
     private var redditList: [RedditEntity] = []
     private var limit: Int = 30
-    private var defaultLimit: Int = 30
+    private var defaultLimit: Int = 50
     private let addToLimit: Int = 20
     
     // MARK: - Public property
@@ -155,8 +155,10 @@ private extension ListViewController {
             
             apiManager.fetchReddit(limit: "\(limit)") { [weak self] redditData in
                 guard let self = self else { return }
+                
                 let children = redditData.data.children
                 self.redditList.removeAll()
+                
                 for reddit in children {
                     self.redditList.append(RedditEntity(model: reddit.data))
                 }

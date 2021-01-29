@@ -12,20 +12,20 @@ struct RedditEntity {
     var thumbnailURL: String?
     var author: String?
     var commentsCount: Int?
-    var destURL: String?
+    var imageURLString: String?
     var createdUTC: Double?
 }
 
 // MARK: - Init for convert from RedditModel
 extension RedditEntity {
-    init(model: RedditChildren? = nil) {
+    init(model: RedditChildrenData? = nil) {
         guard let model = model else { return }
 
         title = model.title
         thumbnailURL = model.thumbnailURL
         author = model.author
         commentsCount = model.commentsCount
-//        destURL = model.destURL
+        imageURLString = model.preview.images[0].source.url
         createdUTC = model.createdUTC
     }
 }
