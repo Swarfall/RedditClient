@@ -24,7 +24,7 @@ struct RedditChildrenData: Decodable {
     let thumbnailURL: String
     let author: String
     let commentsCount: Int
-    let awardings: [RedditChildrenDataAwardings]
+    let awardings: [RedditChildrenDataAwardings]?
     let createdUTC: Double
     
     enum CodingKeys: String, CodingKey {
@@ -38,9 +38,9 @@ struct RedditChildrenData: Decodable {
 }
 
 struct RedditChildrenDataAwardings: Decodable {
-    let image: String
+    let imageURL: String?
     
         enum CodingKeys: String, CodingKey {
-            case image = "icon_url"
+            case imageURL = "icon_url"
         }
 }

@@ -25,7 +25,12 @@ extension RedditEntity {
         thumbnailURL = model.thumbnailURL
         author = model.author
         commentsCount = model.commentsCount
-        imageURLString = model.awardings[0].image
         createdUTC = model.createdUTC
+        
+        if model.awardings?[0] == nil || model.awardings?[0].imageURL == nil {
+            return
+        } else {
+            imageURLString = model.awardings?[0].imageURL
+        }
     }
 }
