@@ -12,10 +12,10 @@ struct RedditModel: Decodable {
 }
 
 struct RedditData: Decodable {
-    let children: [RedditChlidrenData]
+    let children: [RedditChlidren]
 }
 
-struct RedditChlidrenData: Decodable {
+struct RedditChlidren: Decodable {
     let data: RedditChildrenData
 }
 
@@ -24,26 +24,23 @@ struct RedditChildrenData: Decodable {
     let thumbnailURL: String
     let author: String
     let commentsCount: Int
-    let preview: RedditChildrenDataPreview
+    let awardings: [RedditChildrenDataAwardings]
     let createdUTC: Double
     
     enum CodingKeys: String, CodingKey {
-        case title, preview
+        case title
         case thumbnailURL = "thumbnail"
         case author = "author_fullname"
         case commentsCount = "num_comments"
+        case awardings = "all_awardings"
         case createdUTC = "created_utc"
     }
 }
 
-struct RedditChildrenDataPreview: Decodable {
-    let images: [RedditChildrenDataPreviewImages]
-}
-
-struct RedditChildrenDataPreviewImages: Decodable {
-    let source: RedditChildrenDataPreviewImagesSource
-}
-
-struct RedditChildrenDataPreviewImagesSource: Decodable {
-    let url: String
+struct RedditChildrenDataAwardings: Decodable {
+    let image: String
+    
+        enum CodingKeys: String, CodingKey {
+            case image = "icon_url"
+        }
 }

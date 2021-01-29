@@ -8,7 +8,7 @@
 import Foundation
 
 protocol ListRouterDelegate: class {
-    func showDetail()
+    func showDetail(redditPost: RedditEntity)
 }
 
 final class ListRouter {
@@ -24,7 +24,7 @@ final class ListRouter {
         return viewController
     }
     
-    func showDetail() {
-        delegate?.showDetail()
+    func showDetail(redditPost: RedditEntity) {
+        delegate?.showDetail(redditPost: redditPost)
     }
 }

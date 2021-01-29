@@ -9,9 +9,10 @@ import Foundation
 
 final class DetailRouter {
     
-    func build() -> DetailViewController {
+    func build(redditPost: RedditEntity) -> DetailViewController {
         let viewController = DetailViewController.storyboardViewController() as DetailViewController
-        
+        viewController.router = self
+        viewController.redditPost = redditPost
         return viewController
     }
 }

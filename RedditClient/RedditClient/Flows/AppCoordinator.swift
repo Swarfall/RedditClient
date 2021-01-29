@@ -26,8 +26,11 @@ final class AppCoordinator {
 }
 
 extension AppCoordinator: ListRouterDelegate {
-    func showDetail() {
-        
+    func showDetail(redditPost: RedditEntity) {
+        let router = DetailRouter()
+        detailVC = router.build(redditPost: redditPost)
+
+        guard let detailVC = detailVC else { return }
+        navigation.pushViewController(detailVC, animated: true)
     }
 }
-

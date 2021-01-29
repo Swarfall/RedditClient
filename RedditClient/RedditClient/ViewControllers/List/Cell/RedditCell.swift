@@ -33,14 +33,13 @@ final class RedditCell: UITableViewCell {
         if entity.thumbnailURL == nil || entity.thumbnailURL?.contains("https://") == false  {
             backAvatarView.isHidden = true
         } else {
-            avatarImageView.downloaded(from: entity.thumbnailURL ?? "")
+            avatarImageView.loadImageUsingCache(withUrl: entity.thumbnailURL ?? "")
         }
         
         titleLabel.text = entity.title
         commentsCountLabel.text = "Comments: \(entity.commentsCount ?? 0)"
         authorLabel.text = "Author: \(entity.author ?? "no info")"
         hoursAgoLabel.text = differenceInHours(utc: entity.createdUTC ?? 0)
-//        print("url_overridden_by_dest: - \(entity.destURL)")
     }
 
 }

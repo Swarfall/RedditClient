@@ -25,7 +25,7 @@ extension RedditEntity {
         thumbnailURL = model.thumbnailURL
         author = model.author
         commentsCount = model.commentsCount
-        imageURLString = model.preview.images[0].source.url
+        imageURLString = model.awardings[0].image
         createdUTC = model.createdUTC
     }
 }
