@@ -13,21 +13,20 @@ protocol ListViewControllerProtocol: class {
     func hideOverlay()
     func fetchReddit(with limit: Int)
     func showDetail(redditPost: RedditEntity)
+    func showAlert(title: String, message: String)
 }
 
 final class ListViewController: UIViewController {
+    
+    private enum TypeRefresh {
+        case download
+        case reload
+    }
     
     // MARK: - Outlet
     @IBOutlet weak var tableView: UITableView!
     
     // MARK: - Private properties
-    private lazy var downloadRefreshControl: UIRefreshControl = {
-        
-        let refresh = UIRefreshControl()
-        refresh.addTarget(self, action: #selector(refreshingDownload(sender:)), for: .valueChanged)
-        return refresh
-    }()
-    
     private lazy var reloadRefreshControl: UIRefreshControl = {
         let refresh = UIRefreshControl()
         refresh.addTarget(self, action: #selector(refreshingReload(sender:)), for: .valueChanged)
@@ -44,6 +43,7 @@ final class ListViewController: UIViewController {
     private var limit: Int = 30
     private let defaultLimit: Int = 30
     private let addToLimit: Int = 20
+    private var typeRefreshControl: TypeRefresh = .download
     
     // MARK: - Public property
     var router: ListRouter!
@@ -69,10 +69,6 @@ private extension ListViewController {
     func setupCell() {
         tableView.register(UINib(nibName: String(describing: RedditCell.self), bundle: nil),
                            forCellReuseIdentifier: String(describing: RedditCell.self))
-    }
-    
-    @objc func refreshingDownload(sender: UIRefreshControl) {
-        sender.endRefreshing()
     }
     
     @objc func refreshingReload(sender: UIRefreshControl) {
@@ -119,6 +115,13 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
 
 // MARK: - ListViewControllerProtocol
 extension ListViewController: ListViewControllerProtocol {
+    
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     func showDetail(redditPost: RedditEntity) {
         router.showDetail(redditPost: redditPost)
     }
@@ -154,8 +157,10 @@ extension ListViewController: ListViewControllerProtocol {
     
     func hideOverlay() {
         DispatchQueue.main.async { [weak self] in
-            self?.activityIndicator.stopAnimating()
-            self?.overlayView.removeFromSuperview()
+            guard let self = self else { return }
+            
+            self.activityIndicator.stopAnimating()
+            self.overlayView.removeFromSuperview()
         }
     }
     
@@ -176,7 +181,8 @@ extension ListViewController: ListViewControllerProtocol {
             
         } fail: { [weak self] errorString in
             guard let self = self else { return }
-            debugPrint("fetchReddit error: - \(errorString)")
+            
+            self.showAlert(title: "Ups..😔", message: errorString)
             self.hideOverlay()
         }
     }
