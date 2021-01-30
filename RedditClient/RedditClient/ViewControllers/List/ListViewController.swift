@@ -18,11 +18,6 @@ protocol ListViewControllerProtocol: class {
 
 final class ListViewController: UIViewController {
     
-    private enum TypeRefresh {
-        case download
-        case reload
-    }
-    
     // MARK: - Outlet
     @IBOutlet weak var tableView: UITableView!
     
@@ -43,7 +38,6 @@ final class ListViewController: UIViewController {
     private var limit: Int = 30
     private let defaultLimit: Int = 30
     private let addToLimit: Int = 20
-    private var typeRefreshControl: TypeRefresh = .download
     
     // MARK: - Public property
     var router: ListRouter!

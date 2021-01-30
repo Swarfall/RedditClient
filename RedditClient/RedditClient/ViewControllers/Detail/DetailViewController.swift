@@ -11,6 +11,7 @@ protocol DetailViewControllerProtocol: class {
     func differenceInHours(utc date: Double) -> String
     func saveToGallery(image: UIImage)
     func showAlert(title: String, message: String?)
+    func showZoom()
 }
 
 final class DetailViewController: UIViewController {
@@ -55,6 +56,10 @@ final class DetailViewController: UIViewController {
         } else {
             
         }
+    }
+    
+    @IBAction func didTapShowZoom(_ sender: Any) {
+        showZoom()
     }
 }
 
@@ -115,6 +120,14 @@ private extension DetailViewController {
 
 // MARK: - DetailViewControllerProtocol
 extension DetailViewController: DetailViewControllerProtocol {
+    
+    func showZoom() {
+        if let image = avatarImageView.image {
+            router.showZoom(image: image)
+        } else {
+            showAlert(title: "Ups..😔", message: "No image")
+        }
+    }
     
     func differenceInHours(utc date: Double) -> String {
         

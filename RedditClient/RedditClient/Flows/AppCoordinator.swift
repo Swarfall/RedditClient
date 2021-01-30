@@ -11,6 +11,7 @@ final class AppCoordinator {
     private let window: UIWindow
     private let navigation: UINavigationController
     private var detailVC: DetailViewController?
+    private var zoomVC: ZoomViewController?
     
     init(window: UIWindow) {
         self.window = window
@@ -27,10 +28,20 @@ final class AppCoordinator {
 
 extension AppCoordinator: ListRouterDelegate {
     func showDetail(redditPost: RedditEntity) {
-        let router = DetailRouter()
+        let router = DetailRouter(coordinator: self)
         detailVC = router.build(redditPost: redditPost)
 
         guard let detailVC = detailVC else { return }
         navigation.pushViewController(detailVC, animated: true)
+    }
+}
+
+extension AppCoordinator: DetailRouterDelegate {
+    func showZoom(image: UIImage) {
+        let router = ZoomRouter()
+        zoomVC = router.build(image: image)
+        
+        guard let zoomVC = zoomVC else { return }
+        navigation.pushViewController(zoomVC, animated: false)
     }
 }

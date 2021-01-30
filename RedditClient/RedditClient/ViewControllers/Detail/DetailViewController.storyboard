@@ -158,6 +158,9 @@
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                                 <state key="normal" title="🔍"/>
+                                                                <connections>
+                                                                    <action selector="didTapShowZoom:" destination="IfT-ve-OM0" eventType="touchUpInside" id="R49-zS-iNy"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>

@@ -17,6 +17,10 @@
 		9232325D25C1E698009857D9 /* DetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9232325C25C1E698009857D9 /* DetailRouter.swift */; };
 		9245668025C32C7C00925066 /* RedditCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9245667E25C32C7C00925066 /* RedditCell.xib */; };
 		9245668525C34F8B00925066 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9245668425C34F8B00925066 /* UIImageView+Extension.swift */; };
+		92AE8C3A25C5CCB400C27BF6 /* ZoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AE8C3925C5CCB400C27BF6 /* ZoomViewController.swift */; };
+		92AE8C3E25C5CCC500C27BF6 /* ZoomViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92AE8C3D25C5CCC500C27BF6 /* ZoomViewController.storyboard */; };
+		92AE8C4125C5D7DF00C27BF6 /* ZoomRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AE8C4025C5D7DF00C27BF6 /* ZoomRouter.swift */; };
+		92AE8C4425C5DCA900C27BF6 /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AE8C4325C5DCA900C27BF6 /* ImageScrollView.swift */; };
 		92B9946D25BF2F6C00ACD653 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B9946C25BF2F6C00ACD653 /* AppDelegate.swift */; };
 		92B9946F25BF2F6C00ACD653 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B9946E25BF2F6C00ACD653 /* SceneDelegate.swift */; };
 		92B9947625BF2F6F00ACD653 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92B9947525BF2F6F00ACD653 /* Assets.xcassets */; };
@@ -38,6 +42,10 @@
 		9232325C25C1E698009857D9 /* DetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRouter.swift; sourceTree = "<group>"; };
 		9245667E25C32C7C00925066 /* RedditCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RedditCell.xib; sourceTree = "<group>"; };
 		9245668425C34F8B00925066 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
+		92AE8C3925C5CCB400C27BF6 /* ZoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomViewController.swift; sourceTree = "<group>"; };
+		92AE8C3D25C5CCC500C27BF6 /* ZoomViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ZoomViewController.storyboard; sourceTree = "<group>"; };
+		92AE8C4025C5D7DF00C27BF6 /* ZoomRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomRouter.swift; sourceTree = "<group>"; };
+		92AE8C4325C5DCA900C27BF6 /* ImageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
 		92B9946925BF2F6C00ACD653 /* RedditClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RedditClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92B9946C25BF2F6C00ACD653 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92B9946E25BF2F6C00ACD653 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -94,6 +102,25 @@
 			path = Flows;
 			sourceTree = "<group>";
 		};
+		92AE8C3825C5CC8900C27BF6 /* Zoom */ = {
+			isa = PBXGroup;
+			children = (
+				92AE8C4625C5E92600C27BF6 /* ImageScrollView */,
+				92AE8C3925C5CCB400C27BF6 /* ZoomViewController.swift */,
+				92AE8C4325C5DCA900C27BF6 /* ImageScrollView.swift */,
+				92AE8C4025C5D7DF00C27BF6 /* ZoomRouter.swift */,
+				92AE8C3D25C5CCC500C27BF6 /* ZoomViewController.storyboard */,
+			);
+			path = Zoom;
+			sourceTree = "<group>";
+		};
+		92AE8C4625C5E92600C27BF6 /* ImageScrollView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ImageScrollView;
+			sourceTree = "<group>";
+		};
 		92B9946025BF2F6C00ACD653 = {
 			isa = PBXGroup;
 			children = (
@@ -133,6 +160,7 @@
 			children = (
 				92B994A025BF48C500ACD653 /* List */,
 				92B994A125BF48CA00ACD653 /* Detail */,
+				92AE8C3825C5CC8900C27BF6 /* Zoom */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -232,6 +260,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92AE8C3E25C5CCC500C27BF6 /* ZoomViewController.storyboard in Resources */,
 				92B9947925BF2F6F00ACD653 /* LaunchScreen.storyboard in Resources */,
 				92B9947625BF2F6F00ACD653 /* Assets.xcassets in Resources */,
 				9232325925C1E5C0009857D9 /* DetailViewController.storyboard in Resources */,
@@ -251,13 +280,16 @@
 				9232323D25C0A6E1009857D9 /* RedditModel.swift in Sources */,
 				9245668525C34F8B00925066 /* UIImageView+Extension.swift in Sources */,
 				9232325425C1436C009857D9 /* Storyboard+Extension.swift in Sources */,
+				92AE8C4125C5D7DF00C27BF6 /* ZoomRouter.swift in Sources */,
 				9232325D25C1E698009857D9 /* DetailRouter.swift in Sources */,
 				9232324B25C0CE19009857D9 /* AppCoordinator.swift in Sources */,
 				9232324E25C14106009857D9 /* ListRouter.swift in Sources */,
 				92B994A425BF48E800ACD653 /* RedditEntity.swift in Sources */,
 				92B994AB25BF491600ACD653 /* DetailViewController.swift in Sources */,
+				92AE8C3A25C5CCB400C27BF6 /* ZoomViewController.swift in Sources */,
 				92B994B525BF494900ACD653 /* RedditCell.swift in Sources */,
 				92B994A825BF490600ACD653 /* ListViewController.swift in Sources */,
+				92AE8C4425C5DCA900C27BF6 /* ImageScrollView.swift in Sources */,
 				92B9946F25BF2F6C00ACD653 /* SceneDelegate.swift in Sources */,
 				9232323825C0A528009857D9 /* APIManager.swift in Sources */,
 			);
