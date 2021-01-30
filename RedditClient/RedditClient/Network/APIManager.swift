@@ -16,10 +16,9 @@ final class APIManager {
 }
 
 extension APIManager: APIManagerProtocol {
+    
     func fetchReddit(limit: String, success: @escaping (RedditModel) -> Void, fail: @escaping (String) -> Void) {
-        
         guard let url = URL(string: "\(baseURL)limit=\(limit)") else { return }
-        print("url: - \(url)")
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -29,7 +28,7 @@ extension APIManager: APIManagerProtocol {
         
         session.dataTask(with: request) { (data, responce, error) in
             guard let data = data else { return }
-            print("data: - \(data)")
+
             do {
                 let reddit = try JSONDecoder().decode(RedditModel.self, from: data)
                 success(reddit)

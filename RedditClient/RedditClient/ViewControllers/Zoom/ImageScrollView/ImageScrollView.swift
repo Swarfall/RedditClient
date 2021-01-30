@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ImageScrollView: UIScrollView, UIScrollViewDelegate {
+final class ImageScrollView: UIScrollView {
 
     var imageZoomView: UIImageView!
     
@@ -48,7 +48,6 @@ class ImageScrollView: UIScrollView, UIScrollViewDelegate {
         
         self.imageZoomView.addGestureRecognizer(self.zoomingTap)
         self.imageZoomView.isUserInteractionEnabled = true
-
     }
     
     override func layoutSubviews() {
@@ -131,9 +130,10 @@ class ImageScrollView: UIScrollView, UIScrollViewDelegate {
         zoomRect.origin.y = center.y - (zoomRect.size.height / 2)
         return zoomRect
     }
-    
-    // MARK: - UIScrollViewDelegate
-    
+}
+
+// MARK: - UIScrollViewDelegate
+extension ImageScrollView: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.imageZoomView
     }
@@ -141,5 +141,4 @@ class ImageScrollView: UIScrollView, UIScrollViewDelegate {
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
         self.centerImage()
     }
-    
 }

@@ -26,6 +26,7 @@ final class AppCoordinator {
     }
 }
 
+// MARK: - ListRouterDelegate
 extension AppCoordinator: ListRouterDelegate {
     func showDetail(redditPost: RedditEntity) {
         let router = DetailRouter(coordinator: self)
@@ -36,6 +37,7 @@ extension AppCoordinator: ListRouterDelegate {
     }
 }
 
+// MARK: - DetailRouterDelegate
 extension AppCoordinator: DetailRouterDelegate {
     func showZoom(image: UIImage) {
         let router = ZoomRouter()

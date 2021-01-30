@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PopUpView" customModule="RedditClient" customModuleProvider="target">
+            <connections>
+                <outlet property="backView" destination="NXk-AH-GTW" id="nn8-vj-qdV"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="280" height="80"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NXk-AH-GTW">
+                    <rect key="frame" x="0.0" y="0.0" width="280" height="80"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🌄🥳 Success save to gallery" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CjZ-jM-IAh">
+                            <rect key="frame" x="0.0" y="0.0" width="280" height="80"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="CjZ-jM-IAh" firstAttribute="top" secondItem="NXk-AH-GTW" secondAttribute="top" id="DlB-Gq-2N7"/>
+                        <constraint firstAttribute="trailing" secondItem="CjZ-jM-IAh" secondAttribute="trailing" id="DnO-Mv-e08"/>
+                        <constraint firstAttribute="bottom" secondItem="CjZ-jM-IAh" secondAttribute="bottom" id="LIz-RD-Ga8"/>
+                        <constraint firstItem="CjZ-jM-IAh" firstAttribute="leading" secondItem="NXk-AH-GTW" secondAttribute="leading" id="S96-nz-cS2"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="NXk-AH-GTW" secondAttribute="trailing" id="9RN-Xl-Ipf"/>
+                <constraint firstAttribute="bottom" secondItem="NXk-AH-GTW" secondAttribute="bottom" id="ACJ-7F-VZ1"/>
+                <constraint firstItem="NXk-AH-GTW" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="mDr-OW-SSb"/>
+                <constraint firstItem="NXk-AH-GTW" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="ovW-69-QCF"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="40.579710144927539" y="-138.61607142857142"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -18,6 +18,24 @@ protocol ListViewControllerProtocol: class {
 
 final class ListViewController: UIViewController {
     
+    private enum Constants {
+        static let defaultLimit: Int = 30
+        static let addToLimit: Int = 20
+        
+        enum OverlayView {
+            static let cornerRadius: CGFloat = 10
+            static let alpha: CGFloat = 0.7
+            static let x: CGFloat = 0
+            static let y: CGFloat = 0
+            static let width: CGFloat = 100
+            static let height: CGFloat = 100
+        }
+        
+        enum Activity {
+            static let height: CGFloat = 44
+        }
+    }
+    
     // MARK: - Outlet
     @IBOutlet weak var tableView: UITableView!
     
@@ -36,8 +54,6 @@ final class ListViewController: UIViewController {
     private var apiManager = APIManager()
     private var redditList: [RedditEntity] = []
     private var limit: Int = 30
-    private let defaultLimit: Int = 30
-    private let addToLimit: Int = 20
     
     // MARK: - Public property
     var router: ListRouter!
@@ -66,7 +82,7 @@ private extension ListViewController {
     }
     
     @objc func refreshingReload(sender: UIRefreshControl) {
-        limit = defaultLimit
+        limit = Constants.addToLimit
         fetchReddit(with: limit)
         sender.endRefreshing()
     }
@@ -92,12 +108,12 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == limit - 1 {
             
-            activityIndicator.frame = CGRect(x: 0, y: 0, width: tableView.tableFooterView?.frame.width ?? 0, height: 44)
+            activityIndicator.frame = CGRect(x: 0, y: 0, width: tableView.tableFooterView?.frame.width ?? 0, height: Constants.Activity.height)
             activityIndicator.startAnimating()
             tableView.tableFooterView = activityIndicator
             tableView.tableFooterView?.isHidden = false
             
-            limit += addToLimit
+            limit += Constants.addToLimit
             fetchReddit(with: limit)
         }
     }
@@ -135,10 +151,13 @@ extension ListViewController: ListViewControllerProtocol {
         overlayView.center = view.center
         overlayView.backgroundColor = .lightGray
         overlayView.clipsToBounds = true
-        overlayView.layer.cornerRadius = 10
-        overlayView.alpha = 0.7
+        overlayView.layer.cornerRadius = Constants.OverlayView.cornerRadius
+        overlayView.alpha = Constants.OverlayView.alpha
         
-        activityIndicator.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        activityIndicator = UIActivityIndicatorView(frame: CGRect(x: Constants.OverlayView.x,
+                                                                  y: Constants.OverlayView.y,
+                                                                  width: Constants.OverlayView.width,
+                                                                  height: Constants.OverlayView.height))
         activityIndicator.style = .large
         activityIndicator.color = .blue
         activityIndicator.center = CGPoint(x: overlayView.bounds.width / 2,

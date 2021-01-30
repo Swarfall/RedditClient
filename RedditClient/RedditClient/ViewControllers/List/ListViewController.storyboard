@@ -11,7 +11,7 @@
         <!--List-->
         <scene sceneID="ZHT-bD-URT">
             <objects>
-                <viewController storyboardIdentifier="ListViewController" id="SXb-l5-B97" customClass="ListViewController" customModule="RedditClient" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ListViewController" title="List" id="SXb-l5-B97" customClass="ListViewController" customModule="RedditClient" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="crz-xm-026">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
