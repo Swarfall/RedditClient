@@ -8,6 +8,10 @@
 import UIKit
 
 final class RedditCell: UITableViewCell {
+    
+    enum Constant {
+        static let cornerRadius: CGFloat = 8
+    }
 
     // MARK: - Outlets
     @IBOutlet weak var backView: UIView!
@@ -30,7 +34,7 @@ final class RedditCell: UITableViewCell {
     // MARK: - PublicMethod
     func update(entity: RedditEntity) {
         
-        if entity.thumbnailURL == nil || entity.thumbnailURL?.contains("https://") == false  {
+        if entity.thumbnailURL == nil || entity.thumbnailURL?.contains("https://") == false {
             backAvatarView.isHidden = true
         } else {
             avatarImageView.loadImageUsingCache(withUrl: entity.thumbnailURL ?? "")
@@ -41,7 +45,6 @@ final class RedditCell: UITableViewCell {
         authorLabel.text = "Author: \(entity.author ?? "no info")"
         hoursAgoLabel.text = differenceInHours(utc: entity.createdUTC ?? 0)
     }
-
 }
 
 // MARK: -  Private
@@ -56,10 +59,10 @@ private extension RedditCell {
     
     func setupView() {
         
-        backView.layer.cornerRadius = 8
+        backView.layer.cornerRadius = Constant.cornerRadius
         backView.clipsToBounds = true
 
-        avatarImageView.layer.cornerRadius = 8
+        avatarImageView.layer.cornerRadius = Constant.cornerRadius
     }
     
     func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {

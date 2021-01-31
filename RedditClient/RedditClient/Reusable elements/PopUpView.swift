@@ -8,6 +8,10 @@
 import UIKit
 
 final class PopUpView: NibView {
+    
+    enum Constant {
+        static let cornerRadius: CGFloat = 8
+    }
 
     @IBOutlet weak var backView: UIView!
     
@@ -15,12 +19,11 @@ final class PopUpView: NibView {
         super.setupUI()
         setupView()
     }
-
 }
 
 private extension PopUpView {
     func setupView() {
-        backView.layer.cornerRadius = 8
+        backView.layer.cornerRadius = Constant.cornerRadius
         backView.clipsToBounds = true
     }
 }
