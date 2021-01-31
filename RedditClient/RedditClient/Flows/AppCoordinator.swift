@@ -44,6 +44,6 @@ extension AppCoordinator: DetailRouterDelegate {
         zoomVC = router.build(image: image)
         
         guard let zoomVC = zoomVC else { return }
-        navigation.pushViewController(zoomVC, animated: false)
+        navigation.pushViewController(zoomVC, animated: true)
     }
 }

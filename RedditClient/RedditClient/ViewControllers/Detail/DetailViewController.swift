@@ -131,6 +131,7 @@ private extension DetailViewController {
                                             y: Constants.PopUp.y,
                                             width:Constants.PopUp.width,
                                             height: Double(Constants.PopUp.height)))
+        
         view.addSubview(popUpView!)
     }
     
