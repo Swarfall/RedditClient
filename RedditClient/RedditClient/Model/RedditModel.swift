@@ -40,7 +40,7 @@ struct RedditChildrenData: Decodable {
 struct RedditChildrenDataAwardings: Decodable {
     let imageURL: String?
     
-        enum CodingKeys: String, CodingKey {
-            case imageURL = "icon_url"
-        }
+    enum CodingKeys: String, CodingKey {
+        case imageURL = "icon_url"
+    }
 }
