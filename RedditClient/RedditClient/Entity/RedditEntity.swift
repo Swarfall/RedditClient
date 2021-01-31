@@ -27,9 +27,7 @@ extension RedditEntity {
         commentsCount = model.commentsCount
         createdUTC = model.createdUTC
         
-        if model.awardings?[0] == nil || model.awardings?[0].imageURL == nil {
-            return
-        } else {
+        if model.awardings?[0] != nil || model.awardings?[0].imageURL != nil {
             imageURLString = model.awardings?[0].imageURL
         }
     }

@@ -35,7 +35,7 @@ final class ImageScrollView: UIScrollView {
         imageZoomView?.removeFromSuperview()
         imageZoomView = nil
         imageZoomView = UIImageView(image: image)
-        self.addSubview(imageZoomView)
+        addSubview(imageZoomView)
         
         configurateFor(imageSize: image.size)
     }
