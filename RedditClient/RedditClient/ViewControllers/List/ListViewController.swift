@@ -66,6 +66,12 @@ final class ListViewController: UIViewController {
         showOverlay()
         fetchReddit(with: limit)
     }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        overlayView.frame.size = size
+        activityIndicator.center = overlayView.center
+    }
 }
 
 // MARK: - Private
@@ -160,8 +166,7 @@ extension ListViewController: ListViewControllerProtocol {
                                                                   height: Constants.OverlayView.height))
         activityIndicator.style = .large
         activityIndicator.color = .blue
-        activityIndicator.center = CGPoint(x: overlayView.bounds.width / 2,
-                                           y: overlayView.bounds.height / 2)
+        activityIndicator.center = overlayView.center
         overlayView.addSubview(activityIndicator)
         view.addSubview(overlayView)
         

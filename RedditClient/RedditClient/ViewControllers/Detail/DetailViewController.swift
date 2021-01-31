@@ -65,6 +65,11 @@ final class DetailViewController: UIViewController {
         setupView()
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        showPopUp(isShow: false)
+    }
+    
     // MARK: - Actions
     @IBAction func didTapSaveImage(_ sender: Any) {
         if avatarImageView.image != nil {
